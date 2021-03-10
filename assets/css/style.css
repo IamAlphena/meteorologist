@@ -7,3 +7,67 @@ Green: #00917C
 Cream: #FDE8CD
 
 *****/
+
+body{
+    background: #433520; /* Old browsers */
+    background: -moz-linear-gradient(top,  #433520 0%, #00917C 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #433520 0%,#00917C 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #433520 0%,#00917C  100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#433520', endColorstr='#00917C',GradientType=0 ); /* IE6-9 */
+    background-attachment: fixed;
+    /* font-family: 'RocknRoll One', sans-serif; */
+}
+
+header{
+    height: 50px;
+    width: 98%;
+    border: 2px solid #FDE8CD ;
+    position: fixed;
+    top: 20px;
+    left: 5px;
+    display: inline;
+    background-color: #025955;
+    border-radius: 20px;
+    z-index: 3;
+}
+
+header h1 {
+    font-size: 20px;
+    color: #f6f5f5;
+    margin-right: 10px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.break{
+    background-image: url("../images/skycropped.png");
+    display: block;
+    width: 100%;
+    height: 400px;
+  }
+
+  .spacer{
+    height: 20px;
+    /* border: 2px solid white; */
+}
+
+.sidebar{
+    width: 200px;
+    border: 1px solid white;
+    height: 350px;
+  
+    
+}
+
+.info{
+    /* margin-left: 200px; */
+    height: 350px;
+    width: 500px;
+    border: 1px solid white;
+ 
+}
+.main{
+    display:flex;
+    position: relative;
+    flex-direction: row;
+}
