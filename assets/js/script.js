@@ -4,6 +4,8 @@ Global Variables
 var apikey = 'c83778c7f141b230770c6fd0f34d13b1';
 
 var reportEl = document.querySelector('.report');
+
+var city = '';
 /*
 Functions
 */
@@ -16,7 +18,6 @@ function retreiveWeather(city) {
     fetch(currentURL)
         .then((data) => data.json())
         .then(function (weather) {
-            // console.log(weather)
 
             if (weather.cod === "404") {
                 alert("City not found");
@@ -31,31 +32,27 @@ function retreiveWeather(city) {
                 .then((data) => data.json())
                 .then(function (oneCallData) {
                     console.log(oneCallData)
-                    var report = oneCallData
-                    report.for(current => {
-                        var reportCard = createCard(current)
 
-                        reportEl.append(reportCard)
+                    var titles = results.results
+                    titles.forEach(title => {
 
+                        var titleCard = createCard(title)
+
+                        searchResults.append(titleCard);
                     });
+                });
+        });
 
-                })
-
-        })
 };
 
-function createCard(current) {
-    console.log(current)
+
+function createCard(title) {
+    console.log(title.date)
     var card = $(`
-        <div class='card'>
-        <h1>${city} (DATE) (Weather Icon)</h1>
-        <p> Temperature: </p>
-        <p> Feels Like: </p>
-        <p> Humidity: </p>
-        <p> Wind Speed: </p>
-        <p> UV Index: </p>
-        <div>
-        `)
+            <div class="card">
+            <h1>${city}<h1>
+            </div >
+    `)
 
     return card;
 }
@@ -67,7 +64,16 @@ retreiveWeather('Philadelphia');
 Events
 */
 
+// function to collect search city
+//Listen for click, then store input value (city) for recent search and run search
+$("#search").on('click', function (event) {
+    //prevent default (reload)
+    event.preventDefault();
+    //collect the search information
+    var citySearch = $(this).siblings("input").val();
 
+    console.log(citySearch);
+});
 
 /*
 Entry Points
