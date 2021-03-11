@@ -15,7 +15,7 @@ body{
     background: linear-gradient(to bottom,  #433520 0%,#00917C  100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#433520', endColorstr='#00917C',GradientType=0 ); /* IE6-9 */
     background-attachment: fixed;
-    /* font-family: 'RocknRoll One', sans-serif; */
+    font-family: 'Raleway', sans-serif;
 }
 
 header{
@@ -32,11 +32,12 @@ header{
 }
 
 header h1 {
-    font-size: 20px;
+    font-size: 40px;
     color: #f6f5f5;
     margin-right: 10px;
     margin-top: 5px;
     text-align: center;
+    font-family: 'Shadows Into Light', cursive;
 }
 
 .break{
@@ -70,4 +71,13 @@ header h1 {
     display:flex;
     position: relative;
     flex-direction: row;
+}
+
+.card{
+    border: 1px solid white;
+    background-color: #FDE8CD;
+}
+
+.card p{
+    font-size: 20px;
 }
