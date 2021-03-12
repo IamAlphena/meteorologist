@@ -5,11 +5,14 @@ var apikey = 'c83778c7f141b230770c6fd0f34d13b1';
 
 var reportEl = document.querySelector('.report');
 var cardEl = document.querySelector('.card');
-var tempEl = document.querySelector(".temperature")
+var tempEl = document.querySelector('.temperature')
 var humidityEl = document.querySelector(".humidity")
 var windEl = document.querySelector(".wind")
-var uvEl = document.querySelector(".temperature")
+var uvEl = document.querySelector(".uv")
+// var cityEl = document.querySelector('.city')
+// var dayEl = document.querySelector('.day')
 
+// var today = moment().format('MMMM Do YYYY');
 
 var city = '';
 
@@ -20,6 +23,7 @@ Functions
 // function to get weather data for specified city
 function retreiveWeather(city) {
     //places city and API key into API address
+
     var currentURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}`;
 
     fetch(currentURL)
@@ -45,14 +49,21 @@ function retreiveWeather(city) {
                     console.log(report);
 
                     $(reportEl).show();
+                
+                    // cityEl.textContent = city;
+                    // dayEl.textContent = today;
 
                     var temperature = `Temperature: ${report.temp} °F`;
 
-                    tempEl.text(temperature);
+                    tempEl.textContent = temperature;
 
-                    // var humidity = `Humidity: ${report.humidity} %`;
+                    var humidity = `Humidity: ${report.humidity} %`;
 
-                    // var wind = `Wind Speed: ${report.wind_speed} MPH`;
+                    humidityEl.textContent = humidity;
+
+                    var wind = `Wind Speed: ${report.wind_speed} MPH`;
+
+                    windEl.textContent = wind;
 
         
 
