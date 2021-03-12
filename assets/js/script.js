@@ -17,6 +17,7 @@ var uvEl = document.querySelector(".uv")
 var cityEl = document.querySelector('.city')
 var dayEl = document.querySelector('.day')
 var savedEl = document.querySelector('.saved')
+var forcastEl = document.querySelector('.forcast')
 
 var today = moment().format('MMMM Do YYYY');
 
@@ -30,24 +31,24 @@ Functions
 
 // function to get weather data for specified city
 function retreiveWeather(city) {
-    
+
     //places city and API key into API address
     var currentURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}`;
-    
+
     //runs a fetch request to get initial data
     fetch(currentURL)
         .then((data) => data.json())
         .then(function (weather) {
-            
+
             //if the city cannot be found, use alert to get user to re enter city
             if (weather.cod === "404") {
                 alert("City not found");
             };
-            
+
             //pull latitude and longitude from data for more accurate information
             var lat = weather.coord.lat;
             var lon = weather.coord.lon;
-            
+
             //using the coordinates into One Call API 
             var onecallURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apikey}`;
 
@@ -62,7 +63,7 @@ function retreiveWeather(city) {
 
                     //turn on DIV that will display current information
                     $(reportEl).show();
-                   
+
                     //Clears any old data in the city name line
                     cityEl.innerHTML = "  ";
                     //Adds the city we searched for to the city name line
@@ -91,13 +92,13 @@ function retreiveWeather(city) {
                     uvEl.textContent = uvindex;
 
                     //uses a logic function to check the UVI index score to the chart to determine it's strength
-                    if (report.uvi <= 2 ){
+                    if (report.uvi <= 2) {
                         uvEl.classList.add('low');
-                    } else if (report.uvi > 2 && report.uvi < 6){
+                    } else if (report.uvi > 2 && report.uvi < 6) {
                         uvEl.addClass("mid")
-                    } else if (report.uvi > 5 && report.uvi < 8){
+                    } else if (report.uvi > 5 && report.uvi < 8) {
                         uvEl.addClass("high")
-                    } else if (report.uvi > 7 && report.uvi < 11){
+                    } else if (report.uvi > 7 && report.uvi < 11) {
                         uvEl.addClass("vhigh")
                     } else {
                         uvEl.addClass("extreme")
@@ -111,25 +112,29 @@ function retreiveWeather(city) {
                     forcastData.pop();
                     forcastData.pop();
 
-                    
+                    console.log(forcastData);
+                    console.log(forcastData[0].clouds);
+                    // //convert the UNIX timestamp into MM/DD/YYYY
+                    // var forcastDt = forcastData[].dt
+                    // console.log(forcastDt);
 
+                    // create the 5 forcast cards from each item in the forcastData array
 
+                    for (let i = 0; i < forcastData.length; i++) {
+                        var forcastCard = $(`
+                            <div class="card">
+                                <h1>Date<h1>
+                                <p>Temp: ${forcastData[i].temp.max}°F </p>
+                                 <p>Humidity: ${forcastData[i].humidity}%</p>
+                             </div >
+                         `)
 
+                        forcastEl.append(forcastCard);
+                    }
 
-
-
-
-
-
-
-
-
-
-                });
-        });
-};
-
-
+                })
+        })
+}
 
 // function createCard(report) {
 //     console.log(report)
@@ -143,34 +148,34 @@ function retreiveWeather(city) {
 //     return card;
 // }
 
-function saveRecent(city){
-    
-    if (savedCities.includes(city)){
+function saveRecent(city) {
+
+    if (savedCities.includes(city)) {
         return;
     }
 
     if (savedCities.length === 7) {
         // Remove last item
         savedCities.pop();
-      }
-      // Add item to front of array
-      savedCities.unshift(city);
-      localStorage.setItem("recent", JSON.stringify(savedCities));
-      pullRecent(savedCities);
+    }
+    // Add item to front of array
+    savedCities.unshift(city);
+    localStorage.setItem("recent", JSON.stringify(savedCities));
+    pullRecent(savedCities);
 
 }
 
 function pullRecent(arr) {
     savedEl.innerHTML = "";
     for (let i = 0; i < arr.length; i++) {
-      var item = arr[i];
-      var li = document.createElement("li");
-      li.innerText = item;
-      savedEl.append(li);
+        var item = arr[i];
+        var li = document.createElement("li");
+        li.innerText = item;
+        savedEl.append(li);
     }
-  }
+}
 
-  pullRecent(savedCities)
+pullRecent(savedCities)
 /*
 Events
 */
