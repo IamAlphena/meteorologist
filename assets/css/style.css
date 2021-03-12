@@ -85,6 +85,27 @@ header h1 {
     font-size: 20px;
 }
 
-.uv-low{
+.low{
     background-color: #00ff00;
+}
+
+.mid{
+    background-color: #FDEE87;
+}
+
+.high{
+    background-color: #ff0000;
+}
+
+.vhigh{
+    background-color: #B57EDC;
+}
+
+.extreme{
+    background-color: #663399;
+}
+
+.saved{
+    padding: 10px;
+    color:#FDE8CD;
 }

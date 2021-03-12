@@ -11,8 +11,11 @@ var windEl = document.querySelector(".wind")
 var uvEl = document.querySelector(".uv")
 var cityEl = document.querySelector('.city')
 var dayEl = document.querySelector('.day')
+var savedEl = document.querySelector('.saved')
 
 var today = moment().format('MMMM Do YYYY');
+
+var savedCities = JSON.parse(localStorage.getItem("recent")) || [];
 
 var city = '';
 
@@ -66,12 +69,25 @@ function retreiveWeather(city) {
 
                     windEl.textContent = wind;
 
-        
 
+                    var uvindex = `${report.uvi}`;
+
+                    uvEl.textContent = uvindex;
+
+                    if (report.uvi <= 2 ){
+                        uvEl.classList.add('low');
+                    } else if (report.uvi > 2 && report.uvi < 6){
+                        uvEl.addClass("mid")
+                    } else if (report.uvi > 5 && report.uvi < 8){
+                        uvEl.addClass("high")
+                    } else if (report.uvi > 7 && report.uvi < 11){
+                        uvEl.addClass("vhigh")
+                    } else {
+                        uvEl.addClass("extreme")
+                    };
                 });
         });
 };
-
 
 // function createCard(report) {
 //     console.log(report)
@@ -85,9 +101,34 @@ function retreiveWeather(city) {
 //     return card;
 // }
 
+function saveRecent(city){
+    
+    if (savedCities.includes(city)){
+        return;
+    }
 
+    if (savedCities.length === 7) {
+        // Remove last item
+        savedCities.pop();
+      }
+      // Add item to front of array
+      savedCities.unshift(city);
+      localStorage.setItem("recent", JSON.stringify(savedCities));
+      pullRecent(savedCities);
 
+}
 
+function pullRecent(arr) {
+    savedEl.innerHTML = "";
+    for (let i = 0; i < arr.length; i++) {
+      var item = arr[i];
+      var li = document.createElement("li");
+      li.innerText = item;
+      savedEl.append(li);
+    }
+  }
+
+  pullRecent(savedCities)
 /*
 Events
 */
@@ -103,6 +144,7 @@ $("#search").on('click', function (event) {
     console.log(citySearch);
 
     retreiveWeather(citySearch);
+    saveRecent(citySearch)
 
 });
 
