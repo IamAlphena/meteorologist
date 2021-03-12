@@ -9,10 +9,10 @@ var tempEl = document.querySelector('.temperature')
 var humidityEl = document.querySelector(".humidity")
 var windEl = document.querySelector(".wind")
 var uvEl = document.querySelector(".uv")
-// var cityEl = document.querySelector('.city')
-// var dayEl = document.querySelector('.day')
+var cityEl = document.querySelector('.city')
+var dayEl = document.querySelector('.day')
 
-// var today = moment().format('MMMM Do YYYY');
+var today = moment().format('MMMM Do YYYY');
 
 var city = '';
 
@@ -49,9 +49,10 @@ function retreiveWeather(city) {
                     console.log(report);
 
                     $(reportEl).show();
-                
-                    // cityEl.textContent = city;
-                    // dayEl.textContent = today;
+                   
+                   
+                    cityEl.append(city);
+                    dayEl.textContent = today
 
                     var temperature = `Temperature: ${report.temp} °F`;
 

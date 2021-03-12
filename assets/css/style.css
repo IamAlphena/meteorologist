@@ -54,15 +54,16 @@ header h1 {
 
 .sidebar{
     width: 250px;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     height: 350px;
+    margin-left: 10px;
 }
 
 .info{
     /* margin-left: 200px; */
     height: 350px;
     width: 500px;
-    border: 1px solid white;
+    /* border: 1px solid white; */
  
 }
 .main{
