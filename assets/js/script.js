@@ -1,3 +1,8 @@
+//recent search re-searches
+//5day forcast
+//icons
+
+
 /*
 Global Variables
 */
@@ -25,55 +30,67 @@ Functions
 
 // function to get weather data for specified city
 function retreiveWeather(city) {
+    
     //places city and API key into API address
-
     var currentURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}`;
-
+    
+    //runs a fetch request to get initial data
     fetch(currentURL)
         .then((data) => data.json())
         .then(function (weather) {
-
+            
+            //if the city cannot be found, use alert to get user to re enter city
             if (weather.cod === "404") {
                 alert("City not found");
             };
-
+            
+            //pull latitude and longitude from data for more accurate information
             var lat = weather.coord.lat;
             var lon = weather.coord.lon;
-
+            
+            //using the coordinates into One Call API 
             var onecallURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apikey}`;
 
+            //runs a fetch request to get the One Call API Data
             fetch(onecallURL)
                 .then((data) => data.json())
                 .then(function (oneCallData) {
                     console.log(oneCallData)
 
+                    //compile One Call API Data into single variable for the current conditions
                     var report = oneCallData.current
 
-                    console.log(report);
-
+                    //turn on DIV that will display current information
                     $(reportEl).show();
                    
-                   
+                    //Clears any old data in the city name line
+                    cityEl.innerHTML = "  ";
+                    //Adds the city we searched for to the city name line
                     cityEl.append(city);
-                    dayEl.textContent = today
+                    //Adds today's date to the date line
+                    dayEl.textContent = today;
 
+                    //variable takes the temperature from the report with syntax wanted on the page 
                     var temperature = `Temperature: ${report.temp} °F`;
 
                     tempEl.textContent = temperature;
 
+                    //variable takes the humidity from the report with syntax wanted on the page
                     var humidity = `Humidity: ${report.humidity} %`;
-
+                    //write the information to the page
                     humidityEl.textContent = humidity;
 
+                    //variable takes the wind speed from the report with syntax wanted on the page 
                     var wind = `Wind Speed: ${report.wind_speed} MPH`;
-
+                    //write the information to the page
                     windEl.textContent = wind;
 
-
+                    //variable takes the UV Index from the report 
                     var uvindex = `${report.uvi}`;
-
+                    //write the information to the page
                     uvEl.textContent = uvindex;
 
+                    //uses a logic function to check the UVI index score to the chart to determine it's strength
                     if (report.uvi <= 2 ){
                         uvEl.classList.add('low');
                     } else if (report.uvi > 2 && report.uvi < 6){
@@ -85,9 +102,34 @@ function retreiveWeather(city) {
                     } else {
                         uvEl.addClass("extreme")
                     };
+
+                    //pulls data from One Call API report for the daily predictions
+                    var forcastData = oneCallData.daily;
+                    //removes the one at the beginning of the array, as it will be equal to our current information              
+                    forcastData.shift();
+                    //removes the last 2 from the array to have 5 items left
+                    forcastData.pop();
+                    forcastData.pop();
+
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
                 });
         });
 };
+
+
 
 // function createCard(report) {
 //     console.log(report)
@@ -144,7 +186,7 @@ $("#search").on('click', function (event) {
     console.log(citySearch);
 
     retreiveWeather(citySearch);
-    saveRecent(citySearch)
+    saveRecent(citySearch);
 
 });
 
