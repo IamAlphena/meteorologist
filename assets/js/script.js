@@ -4,8 +4,15 @@ Global Variables
 var apikey = 'c83778c7f141b230770c6fd0f34d13b1';
 
 var reportEl = document.querySelector('.report');
+var cardEl = document.querySelector('.card');
+var tempEl = document.querySelector(".temperature")
+var humidityEl = document.querySelector(".humidity")
+var windEl = document.querySelector(".wind")
+var uvEl = document.querySelector(".temperature")
+
 
 var city = '';
+
 /*
 Functions
 */
@@ -33,32 +40,41 @@ function retreiveWeather(city) {
                 .then(function (oneCallData) {
                     console.log(oneCallData)
 
-                    var titles = results.results
-                    titles.forEach(title => {
+                    var report = oneCallData.current
 
-                        var titleCard = createCard(title)
+                    console.log(report);
 
-                        searchResults.append(titleCard);
-                    });
+                    $(reportEl).show();
+
+                    var temperature = `Temperature: ${report.temp} °F`;
+
+                    tempEl.text(temperature);
+
+                    // var humidity = `Humidity: ${report.humidity} %`;
+
+                    // var wind = `Wind Speed: ${report.wind_speed} MPH`;
+
+        
+
                 });
         });
-
 };
 
 
-function createCard(title) {
-    console.log(title.date)
-    var card = $(`
-            <div class="card">
-            <h1>${city}<h1>
-            </div >
-    `)
+// function createCard(report) {
+//     console.log(report)
+//     var card = $(`
+//             <div class="card">
+//             <h1>${city}<h1>
+//             <p>Temperature: ${report.temp}</p>
+//             </div >
+//     `)
+//     console.log(card);
+//     return card;
+// }
 
-    return card;
-}
 
 
-retreiveWeather('Philadelphia');
 
 /*
 Events
@@ -73,6 +89,9 @@ $("#search").on('click', function (event) {
     var citySearch = $(this).siblings("input").val();
 
     console.log(citySearch);
+
+    retreiveWeather(citySearch);
+
 });
 
 /*

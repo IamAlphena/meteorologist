@@ -73,6 +73,10 @@ header h1 {
     flex-direction: row;
 }
 
+.report{
+    display: none;
+}
+
 .card{
     border: 1px solid white;
     background-color: #FDE8CD;
@@ -80,4 +84,8 @@ header h1 {
 
 .card p{
     font-size: 20px;
+}
+
+.uv-low{
+    background-color: #00ff00;
 }
